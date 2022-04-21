@@ -4,9 +4,9 @@ from django.db import models
 
 class Enroll(models.Model):
     competition_id = models.IntegerField()
-    schedule_id = models.IntegerField()
-    coach_id = models.IntegerField()
+    schedule_id = models.IntegerField(null=True)
     user_id = models.IntegerField()
+    player_id = models.IntegerField()
     number = models.SmallIntegerField(null=True)
     order = models.SmallIntegerField(null=True)
     city = models.CharField(max_length=10, null=True)
