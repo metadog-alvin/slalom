@@ -43,9 +43,9 @@ INSTALLED_APPS = [
     'payment',
     'result',
     'schedule',
-    'team',
     'user',
-    # 'models.models'
+    'player',
+    'competition',
 ]
 
 MIDDLEWARE = [
@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'slalom.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'slalom_tw',
+        'NAME': 'slalom',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': '127.0.0.1',
