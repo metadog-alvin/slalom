@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% include 'aside.html' %}
+
+{% block title %}
+    中華民國111年全國中等學校運動會-速樁自由式
+{% endblock %}
+
+{% block content %}
+    this is enroll index
+    <div class="table-responsive">
+        <table class="table table-striped gy-7 gs-7">
+            <thead>
+            <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+                <th>Name</th>
+                <th>Position</th>
+            </tr>
+            </thead>
+            <tbody>
+
+
+                {% for enroll in enrolls %}
+                    <tr>
+                <td>{{ enroll.firstName }}</td>
+                <td>{{ enroll.lastName }}</td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
