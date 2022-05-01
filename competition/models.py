@@ -1,6 +1,9 @@
 from django.db import models
 
 
+
+
+
 class Competition(models.Model):
     name = models.CharField(max_length=50, null=True)
     letter = models.JSONField(null=True)
@@ -18,3 +21,6 @@ class Competition(models.Model):
 
     class Meta:
         db_table = 'competition'
+
+    def get_comptition(request):
+        return Competition.objects.all()

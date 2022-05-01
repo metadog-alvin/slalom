@@ -7,26 +7,51 @@
 {% endblock %}
 
 {% block content %}
-    this is enroll index
-    <div class="table-responsive">
-        <table class="table table-striped gy-7 gs-7">
-            <thead>
-            <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
-                <th>Name</th>
-                <th>Position</th>
-            </tr>
-            </thead>
-            <tbody>
+    <a href="{% url 'enroll.apply' %}" class="btn btn-primary">報名比賽</a>
 
-
-                {% for enroll in enrolls %}
-                    <tr>
-                <td>{{ enroll.firstName }}</td>
-                <td>{{ enroll.lastName }}</td>
+        <div class="py-5">
+            <div class="table-responsive">
+                <table class="table table-row-dashed table-row-gray-300 gy-7">
+                    <thead>
+                    <tr class="fw-bolder fs-6 text-gray-800">
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Office</th>
+                        <th>Age</th>
+                        <th>Start date</th>
+                        <th>Salary</th>
                     </tr>
-                {% endfor %}
-
-            </tbody>
-        </table>
-    </div>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Tiger Nixon</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>61</td>
+                        <td>2011/04/25</td>
+                        <td>$320,800</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+{#        <table class="table table-striped gy-7 gs-7">#}
+{#            <thead>#}
+{#            <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">#}
+{#                <th>Name</th>#}
+{#                <th>Position</th>#}
+{#            </tr>#}
+{#            </thead>#}
+{#            <tbody>#}
+{##}
+{##}
+{#            {% for enroll in enrolls %}#}
+{#                <tr>#}
+{#                    <td>{{ enroll.firstName }}</td>#}
+{#                    <td>{{ enroll.lastName }}</td>#}
+{#                </tr>#}
+{#            {% endfor %}#}
+{##}
+{#            </tbody>#}
+{#        </table>#}
 {% endblock %}

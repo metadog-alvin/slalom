@@ -1,0 +1,214 @@
+{% extends 'layout.html' %}
+
+{% include 'aside.html' %}
+
+{% block title %}
+    報名參賽選手
+{% endblock %}
+
+{% block content %}
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form action="{% url 'enroll.store' %}" method="post">
+
+        {% csrf_token %}
+        <select name="player-id" class="form-select mb-7" data-control="select2" data-placeholder="請選擇參賽選手">
+{#            <option value=""></option>#}
+            <option value="1">新增一個全新的選手</option>
+        </select>
+        <div class="form-floating mb-7">
+            <input name="name" type="input" class="form-control" id="name" placeholder="space"/>
+            <label for="name">姓名</label>
+        </div>
+        <div class="form-floating mb-7">
+            <input name="identity" type="input" class="form-control" id="identity" placeholder="space"/>
+            <label for="identity">身份證字號</label>
+        </div>
+        <select name="agency" class="form-select mb-7" data-control="select2" data-placeholder="請選擇參賽代表單位">
+            {% include 'option/agency.html' %}
+        </select>
+        <div class="form-floating border rounded mb-7">
+            <select name="gender" class="form-select form-select-transparent" id="kt_docs_select2_floating_labels_1">
+                <option value=""> -- 請選擇 --</option>
+                <option value="男">男</option>
+                <option value="女">女</option>
+            </select>
+            <label>性別</label>
+        </div>
+        <div class="form-floating mb-7">
+            <input name="coach" type="input" class="form-control" id="coach" placeholder="space"/>
+            <label for="coach">教練</label>
+        </div>
+        <div class="form-floating mb-7">
+            <input name="leader" type="input" class="form-control" id="leader" placeholder="space"/>
+            <label for="leader">領隊</label>
+        </div>
+        <div class="form-floating mb-7">
+            <input name="manager" type="input" class="form-control" id="manager" placeholder="space"/>
+            <label for="manager">經理</label>
+        </div>
+        <div class="form-floating mb-7">
+            <input name="director" type="input" class="form-control" id="director" placeholder="space"/>
+            <label for="director">管理</label>
+        </div>
+
+        <div class="mt-7 mb-5">
+            <h1>選擇競賽項目</h1>
+        </div>
+        <div class="rounded border p-10 mb-7">
+            <div class="mb-7">
+                <h2>速度過樁</h2>
+            </div>
+            <div class="mb-7">
+                <div class="form-floating border rounded mb-7">
+                    <select name="level-free-style" class="form-select form-select-transparent"
+                            id="kt_docs_select2_floating_labels_1">
+                        <option>請選擇</option>
+                        <option value="初級組">初級組</option>
+                        <option value="新人組">新人組</option>
+                        <option value="選手組">選手組</option>
+                    </select>
+                    <label>級別</label>
+                </div>
+            </div>
+            <div class="mb-7">
+                <div class="form-floating border rounded mb-7">
+                    <select name="group-free-style" class="form-select form-select-transparent"
+                            id="kt_docs_select2_floating_labels_1">
+                        <option>請選擇</option>
+                        <option value="國小一年級">國小一年級</option>
+                        <option value="國小二年級">國小二年級</option>
+                        <option value="國小三年級">國小三年級</option>
+                        <option value="國小四年級">國小四年級</option>
+                        <option value="國小五年級">國小五年級</option>
+                        <option value="國小六年級">國小六年級</option>
+                    </select>
+                    <label>組別</label>
+                </div>
+            </div>
+
+            <div class="form-check form-check-custom form-check-solid mb-7">
+                <input name="item-free-style[]" class="form-check-input" type="checkbox" value="進溜單足S形" id="進溜單足S形"/>
+                <label class="form-check-label" for="進溜單足S形">
+                    進溜單足S形
+                </label>
+            </div>
+            <div class="form-check form-check-custom form-check-solid mb-7">
+                <input name="item-free-style[]" class="form-check-input" type="checkbox" value="進溜雙足S形" id="進溜雙足S形"/>
+                <label class="form-check-label" for="進溜雙足S形">
+                    進溜雙足S形
+                </label>
+            </div>
+            <div class="form-check form-check-custom form-check-solid">
+                <input name="item-free-style[]" class="form-check-input" type="checkbox" value="前溜交叉形" id="前溜交叉形"/>
+                <label class="form-check-label" for="前溜交叉形">
+                    前溜交叉形
+                </label>
+            </div>
+        </div>
+
+        <div class="rounded border p-10 mb-7">
+            <div class="mb-7">
+                <h2>花式繞樁</h2>
+            </div>
+            <div class="mb-7">
+                <div class="form-floating border rounded mb-7">
+                    <select name="level-dance" class="form-select form-select-transparent"
+                            id="kt_docs_select2_floating_labels_1">
+                        <option>請選擇</option>
+                        <option value="國小一年級">國小一年級</option>
+                        <option value="國小二年級">國小二年級</option>
+                        <option value="國小三年級">國小三年級</option>
+                        <option value="國小四年級">國小四年級</option>
+                        <option value="國小五年級">國小五年級</option>
+                        <option value="國小六年級">國小六年級</option>
+                    </select>
+                    <label>組別</label>
+                </div>
+            </div>
+
+            <div class="form-check form-check-custom form-check-solid mb-7">
+                <input name="item-dance[]" class="form-check-input" type="checkbox" value="初級指定套路" id="初級指定套路"/>
+                <label class="form-check-label" for="初級指定套路">
+                    初級指定套路
+                </label>
+            </div>
+            <div class="form-check form-check-custom form-check-solid mb-7">
+                <input name="item-dance[]" class="form-check-input" type="checkbox" value="中級指定套路" id="中級指定套路"/>
+                <label class="form-check-label" for="中級指定套路">
+                    中級指定套路
+                </label>
+            </div>
+            <div class="form-check form-check-custom form-check-solid">
+                <input name="item-dance[]" class="form-check-input" type="checkbox" value="個人花式繞樁" id="個人花式繞樁"/>
+                <label class="form-check-label" for="個人花式繞樁">
+                    個人花式繞樁
+                </label>
+            </div>
+        </div>
+
+        <div class="rounded border p-10 mb-7">
+            <div class="mb-7">
+                <h2>競速</h2>
+            </div>
+            <div class="mb-7">
+                <div class="form-floating border rounded mb-7">
+                    <select name="level-speed" class="form-select form-select-transparent"
+                            id="kt_docs_select2_floating_labels_1">
+                        <option>請選擇</option>
+                        <option value="初級組">初級組</option>
+                        <option value="新人組">新人組</option>
+                        <option value="選手組">選手組</option>
+                    </select>
+                    <label>級別</label>
+                </div>
+            </div>
+            <div class="mb-7">
+                <div class="form-floating border rounded mb-7">
+                    <select name="group-speed" class="form-select form-select-transparent"
+                            id="kt_docs_select2_floating_labels_1">
+                        <option>請選擇</option>
+                        <option value="國小一年級">國小一年級</option>
+                        <option value="國小二年級">國小二年級</option>
+                        <option value="國小三年級">國小三年級</option>
+                        <option value="國小四年級">國小四年級</option>
+                        <option value="國小五年級">國小五年級</option>
+                        <option value="國小六年級">國小六年級</option>
+                    </select>
+                    <label>組別</label>
+                </div>
+            </div>
+
+            <div class="form-check form-check-custom form-check-solid mb-7">
+                <input name="item-speed[]" class="form-check-input" type="checkbox" value="200 公尺爭先計時賽"
+                       id="200 公尺爭先計時賽"/>
+                <label class="form-check-label" for="200 公尺爭先計時賽">
+                    200 公尺爭先計時賽
+                </label>
+            </div>
+            <div class="form-check form-check-custom form-check-solid mb-7">
+                <input name="item-speed[]" class="form-check-input" type="checkbox" value="400 公尺爭先計時賽"
+                       id="400 公尺爭先計時賽"/>
+                <label class="form-check-label" for="400 公尺爭先計時賽">
+                    400 公尺爭先計時賽
+                </label>
+            </div>
+            <div class="form-check form-check-custom form-check-solid">
+                <input name="item-speed[]" class="form-check-input" type="checkbox" value="500 公尺爭先計時賽"
+                       id="500 公尺爭先計時賽"/>
+                <label class="form-check-label" for="500 公尺爭先計時賽">
+                    500 公尺爭先計時賽
+                </label>
+            </div>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary w-175px" type="submit">報名</button>
+        </div>
+    </form>
+{% endblock %}

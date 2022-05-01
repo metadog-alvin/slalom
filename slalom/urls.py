@@ -1,24 +1,44 @@
-"""slalom URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
+from django.http import HttpResponse
 from django.urls import path, include
+from django.views import View
+
+from enroll import views
+from .views import Login
+
+enroll = [
+    path('', views.index, name='enroll'),
+    path('apply/', views.apply, name='enroll.apply'),
+    path('store/', views.store, name='enroll.store'),
+]
+
+from competition import views
+
+competition = [
+    path('', views.index, name='competition'),
+]
+
 from . import views
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-    path('enroll', include('enroll.urls')),
+    path('login', Login.as_view(), name='login'),
+    path('enroll/', include(enroll)),
+    path('competition/', include(competition)),
+
+    # path('admin/', admin.site.urls),
+    # path('credit/', include(enroll)),
+    # path('fee', include('fee.urls')),
+    # path('payment', include('payment.urls')),
+    # path('result', include('result.urls')),
+    # path('schedule', include('schedule.urls')),
+    # path('user', include('user.urls')),
+    # path('player', include('player.urls')),
+
 ]
+
+# urlpatterns = [
+#     path('', main_views.homepage),
+#     path('help/', include('apps.help.urls')),
+#     path('credit/', include(extra_patterns)),
+# ]

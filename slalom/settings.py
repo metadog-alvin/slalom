@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'user',
     'player',
     'competition',
+    # 'user.models.User'
 ]
 
 MIDDLEWARE = [
@@ -139,3 +140,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+AUTH_USER_MODEL = 'user.User'

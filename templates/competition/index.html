@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% include 'aside.html' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="table-responsive">
+        <table class="table table-striped gy-7 gs-7">
+            <thead>
+            <tr class="fw-bold fs-6 text-gray-800 border-bottom border-gray-200">
+                <th>Name</th>
+                <th>Location</th>
+                <th>Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for game in competition %}
+                <tr>
+                    <td>{{ game.name }}</td>
+                    <td>{{ game.location }}</td>
+                    <td>{{ game.date }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
