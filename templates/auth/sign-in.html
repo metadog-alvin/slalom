@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<title>宇犬賽務系統</title>
+		<meta charset="utf-8" />
+		<link rel="shortcut icon" href="{% static 'media/logos/metadog.png' %}"/>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+		<link href="{% static 'plugins/global/plugins.bundle.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'css/style.bundle.css' %}" rel="stylesheet" type="text/css" />
+	</head>
+	<body id="kt_body" class="bg-body">
+		<div class="d-flex flex-column flex-root">
+			<div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url({% static 'media/illustrations/sketchy-1/14.png' %}">
+				<div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
+					<a class="mb-12">
+						<img alt="Logo" src="{% static 'media/logos/metadog.png' %}" class="h-40px" />
+					</a>
+					<div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
+						<form class="form w-100" action="{% url 'sign-in' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.GET.next }}">
+							<div class="text-center mb-10">
+								<h1 class="text-dark mb-3">Sign In to Meta-Slalom</h1>
+                                <div class="text-gray-400 fw-bold fs-4"> New Here? <a href="{% url 'sign-up' %}" class="link-primary fw-bolder"> Create an Account </a></div>
+							</div>
+							<div class="fv-row mb-10">
+								<label class="form-label fs-6 fw-bolder text-dark">Account</label>
+								<input class="form-control form-control-lg form-control-solid" type="text" name="account" autocomplete="off" value="admin" autofocus/>
+							</div>
+							<div class="fv-row mb-10">
+								<div class="d-flex flex-stack mb-2">
+									<label class="form-label fw-bolder text-dark fs-6 mb-0">Password</label>
+								</div>
+								<input class="form-control form-control-lg form-control-solid" type="password" name="password" autocomplete="off" value="1234"/>
+							</div>
+							<div class="text-center">
+								<button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
+									<span class="indicator-label">Login</span>
+									<span class="indicator-progress">Please wait...
+									<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+								</button>
+								<div class="text-center text-muted text-uppercase fw-bolder mb-5">or</div>
+								<a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">
+								<img alt="Logo" src="{% static 'media/svg/brand-logos/google-icon.svg' %}" class="h-20px me-3" />Continue with Google</a>
+{#								<a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">#}
+{#								<img alt="Logo" src="{% static 'media/svg/brand-logos/facebook-4.svg' %}" class="h-20px me-3" />Continue with Facebook</a>#}
+{#								<a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100">#}
+{#								<img alt="Logo" src="{% static 'media/svg/brand-logos/apple-black.svg' %}" class="h-20px me-3" />Continue with Apple</a>#}
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="d-flex flex-center flex-column-auto p-10">
+					<div class="d-flex align-items-center fw-bold fs-6">
+						<a href="https://keenthemes.com" class="text-muted text-hover-primary px-2">宇犬科技 MetaDog.ai</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="{% static 'plugins/global/plugins.bundle.js' %}"></script>'
+		<script src="{% static 'js/scripts.bundle.js' %}"></script>'
+	</body>
+</html>

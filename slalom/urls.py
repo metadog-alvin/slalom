@@ -1,44 +1,33 @@
-from django.contrib import admin
 from django.http import HttpResponse
 from django.urls import path, include
-from django.views import View
 
-from enroll import views
-from .views import Login
 
-enroll = [
-    path('', views.index, name='enroll'),
-    path('apply/', views.apply, name='enroll.apply'),
-    path('store/', views.store, name='enroll.store'),
-]
-
-from competition import views
-
-competition = [
-    path('', views.index, name='competition'),
-]
-
+from competition.urls import competition
+from doc.urls import doc
+from result.urls import result
+from enroll.urls import enroll
+from schedule.urls import schedule
+from setting.urls import setting
 from . import views
+from .views import SignIn, SignUp
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('login', Login.as_view(), name='login'),
+    path('sign-in', SignIn.as_view(), name='sign-in'),
+    path('sign-up', SignUp.as_view(), name='sign-up'),
+    path('sign-out', views.sign_out, name='sign-out'),
     path('enroll/', include(enroll)),
     path('competition/', include(competition)),
+    path('result', include(result)),
+    path('schedule', include(schedule)),
+    path('doc', include(doc)),
 
-    # path('admin/', admin.site.urls),
+    path('setting', include(setting)),
+
     # path('credit/', include(enroll)),
     # path('fee', include('fee.urls')),
     # path('payment', include('payment.urls')),
-    # path('result', include('result.urls')),
-    # path('schedule', include('schedule.urls')),
     # path('user', include('user.urls')),
     # path('player', include('player.urls')),
-
+    # path('admin/', admin.site.urls),
 ]
-
-# urlpatterns = [
-#     path('', main_views.homepage),
-#     path('help/', include('apps.help.urls')),
-#     path('credit/', include(extra_patterns)),
-# ]

@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Player(models.Model):
-    identity = models.CharField(max_length=10,null=True)
+    identity = models.CharField(max_length=20,null=True)
     name = models.CharField(max_length=50,null=True)
     gender = models.CharField(max_length=1, null=True)
     city = models.CharField(max_length=10, null=True)

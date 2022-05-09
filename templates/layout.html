@@ -16,12 +16,20 @@
     <link href="{% static 'plugins/custom/datatables/datatables.bundle.css' %}" rel="stylesheet" type="text/css"/>
     <!--end::Page Vendor Stylesheets-->
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
-    <link href="{% static 'plugins/global/plugins.bundle.css' %}" rel="stylesheet" type="text/css"/>
-    <link href="{% static 'css/style.bundle.css' %}" rel="stylesheet" type="text/css"/>
+
+    {#todo enum#}
+    {% if user.role == 1 or user.role == 2 %}
+        <link href="{% static 'plugins/global/plugins.dark.bundle.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'css/style.dark.bundle.css' %}" rel="stylesheet" type="text/css"/>
+    {% else %}
+        <link href="{% static 'plugins/global/plugins.bundle.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'css/style.bundle.css' %}" rel="stylesheet" type="text/css"/>
+    {% endif %}
     <!--end::Global Stylesheets Bundle-->
 </head>
 <!--begin::Body-->
 <body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed aside-enabled sidebar-enabled">
+{#<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed aside-enabled sidebar-enabled">#}
 <div class="d-flex flex-column flex-root">
     <!--begin::Page-->
     <div class="page d-flex flex-column flex-column-fluid">
@@ -39,6 +47,8 @@
                             <h1 class="d-flex align-items-center my-1">
                                 <span class="text-dark fw-bolder fs-1">{% block title %}{% endblock %}</span>
                             </h1>
+                        {% block breadcrumb %}
+                        {% endblock %}
                         </div>
                     </div>
                     <!--end::Toolbar-->
@@ -62,6 +72,7 @@
 
 <!--begin::Javascript-->
 <script>var hostUrl = "{% static '/' %}";</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!--begin::Global Javascript Bundle(used by all pages)-->
 <script src="{% static 'plugins/global/plugins.bundle.js' %}"></script>
 <script src="{% static 'js/scripts.bundle.js' %}"></script>
@@ -77,30 +88,36 @@
 <script src="{% static 'js/custom/utilities/modals/upgrade-plan.js' %}"></script>
 <script src="{% static 'js/custom/utilities/modals/users-search.js' %}"></script>
 
-<script>
-    toastr.options = {
-        "closeButton": false,
-        "debug": false,
-        "newestOnTop": false,
-        "progressBar": false,
-        "positionClass": "toastr-top-right",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-    };
 
-    {% if messages %}
-        {% for message in messages %}
-            toastr.{{ message.tags }}('{{ message }}');
-        {% endfor %}
-    {% endif %}
+{% block js %}
+
+{% endblock js %}
+
+
+<script>
+toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": true,
+  "positionClass": "toastr-bottom-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+};
+
+{% if messages %}
+    {% for message in messages %}
+        toastr.{{ message.tags }}('{{ message }}');
+    {% endfor %}
+{% endif %}
 
 </script>
 <!--end::Page Custom Javascript-->

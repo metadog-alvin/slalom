@@ -7,30 +7,45 @@
 {% endblock %}
 
 {% block content %}
-    <a href="{% url 'enroll.apply' %}" class="btn btn-primary">報名比賽</a>
 
+    <a href="{% url 'enroll.apply' %}" class="btn btn-primary">報名比賽</a>
         <div class="py-5">
             <div class="table-responsive">
                 <table class="table table-row-dashed table-row-gray-300 gy-7">
                     <thead>
                     <tr class="fw-bolder fs-6 text-gray-800">
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
+                        <th>選手</th>
+                        <th>單位</th>
+                        <th>報名項目</th>
                     </tr>
                     </thead>
                     <tbody>
+                    {% for enroll in enrolls %}
                     <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>61</td>
-                        <td>2011/04/25</td>
-                        <td>$320,800</td>
+                        <td> <a href="{% url 'enroll.apply' enroll.player_id %}">{{ enroll.player__name }}</a> </td>
+                        <td> {{ enroll.agency }} </td>
+                        <td>
+                            {% for item in enroll.item %}
+                                <p>
+                                {% if item.type == 'free_style' %}
+                                    速度過樁 -
+                                {% endif %}
+                                {% if item.type == 'dance' %}
+                                    花式繞樁 -
+                                {% endif %}
+                                {% if item.type == 'speed' %}
+                                    競速 -
+                                {% endif %}
+
+                                {{ item.level }}
+                                {{ item.group }}
+                                {{ item.item }}
+                                {{ item.gender }}子組
+                                </p>
+                            {% endfor %}
+                                </td>
                     </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>

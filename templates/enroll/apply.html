@@ -6,35 +6,47 @@
     報名參賽選手
 {% endblock %}
 
+{% block breadcrumb %}
+    <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+        <li class="breadcrumb-item text-muted">
+            <a href="{% url 'index' %}" class="text-muted text-hover-primary">首頁</a>
+        </li>
+        <li class="breadcrumb-item">
+            <span class="bullet bg-gray-200 w-5px h-2px"></span>
+        </li>
+        <li class="breadcrumb-item text-dark">報名頁面</li>
+    </ul>
+{% endblock %}
+
 {% block content %}
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
 
     <form action="{% url 'enroll.store' %}" method="post">
-
         {% csrf_token %}
-        <select name="player-id" class="form-select mb-7" data-control="select2" data-placeholder="請選擇參賽選手">
-{#            <option value=""></option>#}
-            <option value="1">新增一個全新的選手</option>
+
+        <select name="player_id" class="form-select mb-7" data-control="select2" data-placeholder="新增選手">
+            <option value=""></option>
+            <option value="0">新增一位新選手</option>
+            {% for p in players %}
+                <option value="{{ p.id }}">{{ p.name }} - {{ p.identity }}</option>
+            {% endfor %}
         </select>
         <div class="form-floating mb-7">
-            <input name="name" type="input" class="form-control" id="name" placeholder="space"/>
+            <input name="name" type="text" class="form-control" placeholder="space" disabled/>
             <label for="name">姓名</label>
         </div>
         <div class="form-floating mb-7">
-            <input name="identity" type="input" class="form-control" id="identity" placeholder="space"/>
+            <input name="identity" type="text" class="form-control" id="identity" placeholder="space"
+                   value="{{ player.identity }}" disabled/>
             <label for="identity">身份證字號</label>
         </div>
-        <select name="agency" class="form-select mb-7" data-control="select2" data-placeholder="請選擇參賽代表單位">
+        {#        <select id="agency" name="agency" class="form-select mb-7" data-control="select2" data-placeholder="請選擇參賽代表單位">#}
+        <select id="agency" name="agency" class="js-example-placeholder-single js-states form-control mb-7">
+            {#        <select id="agency" name="agency" class="form-select mb-7" data-control="select2" data-placeholder="請選擇參賽代表單位">#}
             {% include 'option/agency.html' %}
         </select>
         <div class="form-floating border rounded mb-7">
-            <select name="gender" class="form-select form-select-transparent" id="kt_docs_select2_floating_labels_1">
+            <select name="gender" class="form-select form-select-transparent" id="kt_docs_select2_floating_labels_1"
+                    disabled>
                 <option value=""> -- 請選擇 --</option>
                 <option value="男">男</option>
                 <option value="女">女</option>
@@ -42,19 +54,19 @@
             <label>性別</label>
         </div>
         <div class="form-floating mb-7">
-            <input name="coach" type="input" class="form-control" id="coach" placeholder="space"/>
+            <input name="coach" type="text" class="form-control" id="coach" placeholder="space" disabled/>
             <label for="coach">教練</label>
         </div>
         <div class="form-floating mb-7">
-            <input name="leader" type="input" class="form-control" id="leader" placeholder="space"/>
+            <input name="leader" type="text" class="form-control" id="leader" placeholder="space" disabled/>
             <label for="leader">領隊</label>
         </div>
         <div class="form-floating mb-7">
-            <input name="manager" type="input" class="form-control" id="manager" placeholder="space"/>
+            <input name="manager" type="text" class="form-control" id="manager" placeholder="space" disabled/>
             <label for="manager">經理</label>
         </div>
         <div class="form-floating mb-7">
-            <input name="director" type="input" class="form-control" id="director" placeholder="space"/>
+            <input name="director" type="text" class="form-control" id="director" placeholder="space" disabled/>
             <label for="director">管理</label>
         </div>
 
@@ -67,9 +79,9 @@
             </div>
             <div class="mb-7">
                 <div class="form-floating border rounded mb-7">
-                    <select name="level-free-style" class="form-select form-select-transparent"
+                    <select name="level_free_style" class="form-select form-select-transparent"
                             id="kt_docs_select2_floating_labels_1">
-                        <option>請選擇</option>
+                        <option value="">請選擇</option>
                         <option value="初級組">初級組</option>
                         <option value="新人組">新人組</option>
                         <option value="選手組">選手組</option>
@@ -79,9 +91,9 @@
             </div>
             <div class="mb-7">
                 <div class="form-floating border rounded mb-7">
-                    <select name="group-free-style" class="form-select form-select-transparent"
+                    <select name="group_free_style" class="form-select form-select-transparent"
                             id="kt_docs_select2_floating_labels_1">
-                        <option>請選擇</option>
+                        <option value="">請選擇</option>
                         <option value="國小一年級">國小一年級</option>
                         <option value="國小二年級">國小二年級</option>
                         <option value="國小三年級">國小三年級</option>
@@ -94,19 +106,19 @@
             </div>
 
             <div class="form-check form-check-custom form-check-solid mb-7">
-                <input name="item-free-style[]" class="form-check-input" type="checkbox" value="進溜單足S形" id="進溜單足S形"/>
+                <input name="item_free_style[]" class="form-check-input" type="checkbox" value="進溜單足S形" id="進溜單足S形"/>
                 <label class="form-check-label" for="進溜單足S形">
                     進溜單足S形
                 </label>
             </div>
             <div class="form-check form-check-custom form-check-solid mb-7">
-                <input name="item-free-style[]" class="form-check-input" type="checkbox" value="進溜雙足S形" id="進溜雙足S形"/>
+                <input name="item_free_style[]" class="form-check-input" type="checkbox" value="進溜雙足S形" id="進溜雙足S形"/>
                 <label class="form-check-label" for="進溜雙足S形">
                     進溜雙足S形
                 </label>
             </div>
             <div class="form-check form-check-custom form-check-solid">
-                <input name="item-free-style[]" class="form-check-input" type="checkbox" value="前溜交叉形" id="前溜交叉形"/>
+                <input name="item_free_style[]" class="form-check-input" type="checkbox" value="前溜交叉形" id="前溜交叉形"/>
                 <label class="form-check-label" for="前溜交叉形">
                     前溜交叉形
                 </label>
@@ -119,9 +131,9 @@
             </div>
             <div class="mb-7">
                 <div class="form-floating border rounded mb-7">
-                    <select name="level-dance" class="form-select form-select-transparent"
+                    <select name="level_dance" class="form-select form-select-transparent"
                             id="kt_docs_select2_floating_labels_1">
-                        <option>請選擇</option>
+                        <option value="">請選擇</option>
                         <option value="國小一年級">國小一年級</option>
                         <option value="國小二年級">國小二年級</option>
                         <option value="國小三年級">國小三年級</option>
@@ -134,19 +146,19 @@
             </div>
 
             <div class="form-check form-check-custom form-check-solid mb-7">
-                <input name="item-dance[]" class="form-check-input" type="checkbox" value="初級指定套路" id="初級指定套路"/>
+                <input name="item_dance[]" class="form-check-input" type="checkbox" value="初級指定套路" id="初級指定套路"/>
                 <label class="form-check-label" for="初級指定套路">
                     初級指定套路
                 </label>
             </div>
             <div class="form-check form-check-custom form-check-solid mb-7">
-                <input name="item-dance[]" class="form-check-input" type="checkbox" value="中級指定套路" id="中級指定套路"/>
+                <input name="item_dance[]" class="form-check-input" type="checkbox" value="中級指定套路" id="中級指定套路"/>
                 <label class="form-check-label" for="中級指定套路">
                     中級指定套路
                 </label>
             </div>
             <div class="form-check form-check-custom form-check-solid">
-                <input name="item-dance[]" class="form-check-input" type="checkbox" value="個人花式繞樁" id="個人花式繞樁"/>
+                <input name="item_dance[]" class="form-check-input" type="checkbox" value="個人花式繞樁" id="個人花式繞樁"/>
                 <label class="form-check-label" for="個人花式繞樁">
                     個人花式繞樁
                 </label>
@@ -159,9 +171,9 @@
             </div>
             <div class="mb-7">
                 <div class="form-floating border rounded mb-7">
-                    <select name="level-speed" class="form-select form-select-transparent"
+                    <select name="level_speed" class="form-select form-select-transparent"
                             id="kt_docs_select2_floating_labels_1">
-                        <option>請選擇</option>
+                        <option value="">請選擇</option>
                         <option value="初級組">初級組</option>
                         <option value="新人組">新人組</option>
                         <option value="選手組">選手組</option>
@@ -171,9 +183,9 @@
             </div>
             <div class="mb-7">
                 <div class="form-floating border rounded mb-7">
-                    <select name="group-speed" class="form-select form-select-transparent"
+                    <select name="group_speed" class="form-select form-select-transparent"
                             id="kt_docs_select2_floating_labels_1">
-                        <option>請選擇</option>
+                        <option value="">請選擇</option>
                         <option value="國小一年級">國小一年級</option>
                         <option value="國小二年級">國小二年級</option>
                         <option value="國小三年級">國小三年級</option>
@@ -186,21 +198,21 @@
             </div>
 
             <div class="form-check form-check-custom form-check-solid mb-7">
-                <input name="item-speed[]" class="form-check-input" type="checkbox" value="200 公尺爭先計時賽"
+                <input name="item_speed[]" class="form-check-input" type="checkbox" value="200 公尺爭先計時賽"
                        id="200 公尺爭先計時賽"/>
                 <label class="form-check-label" for="200 公尺爭先計時賽">
                     200 公尺爭先計時賽
                 </label>
             </div>
             <div class="form-check form-check-custom form-check-solid mb-7">
-                <input name="item-speed[]" class="form-check-input" type="checkbox" value="400 公尺爭先計時賽"
+                <input name="item_speed[]" class="form-check-input" type="checkbox" value="400 公尺爭先計時賽"
                        id="400 公尺爭先計時賽"/>
                 <label class="form-check-label" for="400 公尺爭先計時賽">
                     400 公尺爭先計時賽
                 </label>
             </div>
             <div class="form-check form-check-custom form-check-solid">
-                <input name="item-speed[]" class="form-check-input" type="checkbox" value="500 公尺爭先計時賽"
+                <input name="item_speed[]" class="form-check-input" type="checkbox" value="500 公尺爭先計時賽"
                        id="500 公尺爭先計時賽"/>
                 <label class="form-check-label" for="500 公尺爭先計時賽">
                     500 公尺爭先計時賽
@@ -208,7 +220,158 @@
             </div>
         </div>
         <div class="text-center">
+            {% if player is not None %}
+            <a id="cancel_btn" class="btn btn-danger w-175px me-5" onclick="document.getElementById('cancel_form').submit();">取消報名</a>
+            {% endif %}
             <button class="btn btn-primary w-175px" type="submit">報名</button>
         </div>
     </form>
+
+    <form id="cancel_form" action="{% url 'enroll.cancel' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="_method" value="delete">
+        <input type="hidden" name="player_id" value="{{ player_id }}">
+    </form>
+
+
+
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        $('#agency').select2({
+            placeholder: '請選擇參賽代表單位'
+        });
+
+        {% if player is None %}
+            disabledForm(true);
+        {% else %}
+            disabledForm(false);
+
+            {% for enroll in enrolls %}
+                $('input[value=\'{{enroll.item}}\']').trigger('click');
+
+                {% if enroll.type == 'free_style' %}
+                    $('select[name=\'level_free_style\']').val('{{ enroll.level }}').trigger('change');
+                    $('select[name=\'group_free_style\']').val('{{ enroll.group }}').trigger('change');
+                {% endif %}
+
+                {% if enroll.type == 'speed' %}
+                    $('select[name=\'level_speed\']').val('{{ enroll.level }}').trigger('change');
+                    $('select[name=\'group_speed\']').val('{{ enroll.group }}').trigger('change');
+                {% endif %}
+
+                {% if enroll.type == 'dance' %}
+                    $('select[name=\'level_dance\']').val('{{ enroll.level }}').trigger('change');
+                    $('select[name=\'group_dance\']').val('{{ enroll.group }}').trigger('change');
+                {% endif %}
+
+            {% endfor %}
+
+            $('select[name=\'player_id\']').val('{{ player.id }}').trigger('change');
+            $('select[name=\'agency\']').val('{{ player.agency }}').trigger('change');
+            $('select[name=\'gender\']').val('{{ player.gender }}').trigger('change');
+            $('input[name=\'name\']').val('{{ player.name }}');
+            $('input[name=\'identity\']').val('{{ player.identity }}');
+            $('input[name=\'coach\']').val('{{ enrolls.0.coach }}');
+            $('input[name=\'leader\']').val('{{ enrolls.0.leader }}');
+            $('input[name=\'manager\']').val('{{ enrolls.0.manager }}');
+            $('input[name=\'director\']').val('{{ enrolls.0.director }}');
+
+        {% endif %}
+
+        $("select[name=player_id]").change(function () {
+            const player_id = parseInt($(this).val());
+
+            if (player_id === 0) {
+                $('input[name=\'name\']').val('');
+                $('input[name=\'identity\']').val('');
+                $('input[name=\'coach\']').val('');
+                $('input[name=\'leader\']').val('');
+                $('input[name=\'manager\']').val('');
+                $('input[name=\'director\']').val('');
+
+                $('select[name=\'agency\']').val(null).trigger('change');
+                $('select[name=\'gender\']').val(null).trigger('change');
+
+                $('select[name=\'level_free_style\']').val('').trigger('change');
+                $('select[name=\'group_free_style\']').val('').trigger('change');
+                $('select[name=\'level_speed\']').val('').trigger('change');
+                $('select[name=\'group_speed\']').val('').trigger('change');
+                $('select[name=\'level_dance\']').val('').trigger('change');
+                $('select[name=\'group_dance\']').val('').trigger('change');
+
+                $('input[name=\'item_free_style[]\']').prop('checked', false);
+                $('input[name=\'item_speed[]\']').prop('checked', false);
+                $('input[name=\'item_dance[]\']').prop('checked', false);
+
+                $('#cancel_btn').hide();
+            } else {
+                window.location.href = '{% url 'enroll.apply' %}/' + player_id;
+            }
+        })
+
+        function initGameItem() {
+            $("#selectGameItem").show();
+            $(".enrollItemBox").show();
+
+            $('input[value="甲、200 公尺雙人計時賽"]').prop('disabled', true);
+            $('input[value="甲、200 公尺爭先賽"]').prop('disabled', true);
+            $('input[value="乙、400 公尺爭先賽"]').prop('disabled', true);
+            $('input[value="大班 200 公尺爭先賽"]').prop('disabled', true);
+            $('input[value="中班 200 公尺爭先賽"]').prop('disabled', true);
+            $('input[value="小班 200 公尺爭先賽"]').prop('disabled', true);
+        }
+
+        function disabledForm(action) {
+            $("input[name='player_id']").prop('disabled', action);
+            $("input[name='name']").prop('disabled', action);
+            $("input[name='identity']").prop('disabled', action);
+            $("input[name='coach']").prop('disabled', action);
+            $("input[name='leader']").prop('disabled', action);
+            $("input[name='manager']").prop('disabled', action);
+            $("input[name='director']").prop('disabled', action);
+            $("select[name='agency']").prop('disabled', action);
+            $("select[name='gender']").prop('disabled', action);
+        }
+
+        function getPlayer(playerId) {
+            var url = "/" + window.location.pathname.split('/')[1] + "/public/player/ajaxGetPlayer/" + playerId;
+            $.ajax({
+                url: url,
+                dateType: "JSON",
+                success: function (msg) {
+                    $("input[name='name']").val(msg.name)
+                    $("input[name='agency']").val(msg.agency)
+                    $("input[name='coach']").val(msg.account.coach)
+                    $("input[name='leader']").val(msg.account.leader)
+                    $("input[name='manager']").val(msg.account.manager)
+                    $("input[name='director']").val(msg.account.director)
+                    $("select[name='gender'] option[value='" + msg.gender + "']").prop('selected', true)
+                    $("select[name='city'] option[value='" + msg.city + "']").prop('selected', true)
+
+                    initGameItem()
+
+                    if (msg.enroll === null) {
+                        $("select[name='level']").prop("selectedIndex", 0)
+                        $("select[name='group']").prop("selectedIndex", 0)
+                    } else {
+                        $("select[name='level'] option[value='" + msg.enroll.level + "']").prop('selected', true)
+                        $("select[name='group'] option[value='" + msg.enroll.group + "']").prop('selected', true)
+                        $("input[name='coach']").val(msg.enroll.coach)
+                        $("input[name='leader']").val(msg.enroll.leader)
+                        $("input[name='manager']").val(msg.enroll.manager)
+                        $("input[name='director']").val(msg.enroll.director)
+
+                        showGameItem(msg.enroll.level)
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            })
+        }
+
+    </script>
 {% endblock %}

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'user',
     'player',
     'competition',
+    'doc',
     # 'user.models.User'
 ]
 
@@ -142,3 +143,24 @@ STATICFILES_DIRS = (
 )
 
 AUTH_USER_MODEL = 'user.User'
+
+LOGIN_URL = 'sign-in'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
