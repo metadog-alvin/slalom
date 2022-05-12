@@ -11,5 +11,4 @@ enroll = [
     path('apply', login_required(views.apply), name='enroll.apply'),
 
     path('store/', login_required(views.store), name='enroll.store'),
-
 ]

@@ -1,3 +1,11 @@
 from django.shortcuts import render
 
-# Create your views here.
+from user.models import User
+
+
+def index(request):
+    context = {
+        'users': User.objects.all(),
+    }
+
+    return render(request, 'admin/user/index.html', context)

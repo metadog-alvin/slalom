@@ -8,10 +8,12 @@ from result.urls import result
 from enroll.urls import enroll
 from schedule.urls import schedule
 from setting.urls import setting
+from user.urls import user
 from . import views
 from .views import SignIn, SignUp
 
 urlpatterns = [
+    # client
     path('', views.index, name='index'),
     path('sign-in', SignIn.as_view(), name='sign-in'),
     path('sign-up', SignUp.as_view(), name='sign-up'),
@@ -22,12 +24,15 @@ urlpatterns = [
     path('schedule', include(schedule)),
     path('doc', include(doc)),
 
+    # manager
     path('setting', include(setting)),
 
+    # admin
+    path('user', include(user)),
     # path('credit/', include(enroll)),
     # path('fee', include('fee.urls')),
     # path('payment', include('payment.urls')),
-    # path('user', include('user.urls')),
+
     # path('player', include('player.urls')),
     # path('admin/', admin.site.urls),
 ]

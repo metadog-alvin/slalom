@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'player',
     'competition',
     'doc',
-    # 'user.models.User'
+    # 'account'
 ]
 
 MIDDLEWARE = [

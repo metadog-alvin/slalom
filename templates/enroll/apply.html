@@ -35,18 +35,14 @@
             <label for="name">姓名</label>
         </div>
         <div class="form-floating mb-7">
-            <input name="identity" type="text" class="form-control" id="identity" placeholder="space"
-                   value="{{ player.identity }}" disabled/>
+            <input name="identity" type="text" class="form-control" id="identity" placeholder="space" disabled/>
             <label for="identity">身份證字號</label>
         </div>
-        {#        <select id="agency" name="agency" class="form-select mb-7" data-control="select2" data-placeholder="請選擇參賽代表單位">#}
         <select id="agency" name="agency" class="js-example-placeholder-single js-states form-control mb-7">
-            {#        <select id="agency" name="agency" class="form-select mb-7" data-control="select2" data-placeholder="請選擇參賽代表單位">#}
             {% include 'option/agency.html' %}
         </select>
         <div class="form-floating border rounded mb-7">
-            <select name="gender" class="form-select form-select-transparent" id="kt_docs_select2_floating_labels_1"
-                    disabled>
+            <select name="gender" class="form-select form-select-transparent" id="kt_docs_select2_floating_labels_1" disabled>
                 <option value=""> -- 請選擇 --</option>
                 <option value="男">男</option>
                 <option value="女">女</option>

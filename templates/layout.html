@@ -8,14 +8,9 @@
     <meta property="og:locale" content="en_US"/>
     <meta property="og:type" content="article"/>
     <link rel="shortcut icon" href="{% static 'media/logos/metadog.png' %}"/>
-    <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>
-    <!--end::Fonts-->
-    <!--begin::Page Vendor Stylesheets(used by this page)-->
     <link href="{% static 'plugins/custom/fullcalendar/fullcalendar.bundle.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'plugins/custom/datatables/datatables.bundle.css' %}" rel="stylesheet" type="text/css"/>
-    <!--end::Page Vendor Stylesheets-->
-    <!--begin::Global Stylesheets Bundle(used by all pages)-->
 
     {#todo enum#}
     {% if user.role == 1 or user.role == 2 %}
@@ -25,23 +20,16 @@
         <link href="{% static 'plugins/global/plugins.bundle.css' %}" rel="stylesheet" type="text/css"/>
         <link href="{% static 'css/style.bundle.css' %}" rel="stylesheet" type="text/css"/>
     {% endif %}
-    <!--end::Global Stylesheets Bundle-->
+
 </head>
-<!--begin::Body-->
 <body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed aside-enabled sidebar-enabled">
-{#<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed aside-enabled sidebar-enabled">#}
 <div class="d-flex flex-column flex-root">
-    <!--begin::Page-->
     <div class="page d-flex flex-column flex-column-fluid">
         {% include 'header.html' %}
-        <!--begin::Container-->
         <div id="kt_content_container" class="d-flex flex-column-fluid align-items-stretch container-xxl">
             {% include 'aside.html' %}
-            <!--begin::Wrapper-->
             <div class="wrapper d-flex flex-column flex-row-fluid mt-5 mt-lg-10" id="kt_wrapper">
-                <!--begin::Content-->
                 <div class="content flex-column-fluid" id="kt_content">
-                    <!--begin::Toolbar-->
                     <div class="toolbar d-flex flex-stack flex-wrap mb-5 mb-lg-7" id="kt_toolbar">
                         <div class="page-title d-flex flex-column py-1">
                             <h1 class="d-flex align-items-center my-1">
@@ -51,37 +39,26 @@
                         {% endblock %}
                         </div>
                     </div>
-                    <!--end::Toolbar-->
                     {% block content %}
 
                     {% endblock content %}
                 </div>
-                <!--end::Content-->
                 {% include 'footer.html' %}
             </div>
-            <!--end::Wrapper-->
             {% include 'sidebar.html' %}
         </div>
-        <!--end::Container-->
     </div>
-    <!--end::Page-->
 </div>
 {% include 'engage-content.html' %}
 {% include 'engage-toolbar.html' %}
 {% include 'scrolltop.html' %}
 
-<!--begin::Javascript-->
 <script>var hostUrl = "{% static '/' %}";</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<!--begin::Global Javascript Bundle(used by all pages)-->
 <script src="{% static 'plugins/global/plugins.bundle.js' %}"></script>
 <script src="{% static 'js/scripts.bundle.js' %}"></script>
-<!--end::Global Javascript Bundle-->
-<!--begin::Page Vendors Javascript(used by this page)-->
 <script src="{% static 'plugins/custom/fullcalendar/fullcalendar.bundle.js' %}"></script>
 <script src="{% static 'plugins/custom/datatables/datatables.bundle.js' %}"></script>
-<!--end::Page Vendors Javascript-->
-<!--begin::Page Custom Javascript(used by this page)-->
 <script src="{% static 'js/widgets.bundle.js' %}"></script>
 <script src="{% static 'js/custom/widgets.js' %}"></script>
 <script src="{% static 'js/custom/apps/chat/chat.js' %}"></script>
@@ -120,9 +97,6 @@ toastr.options = {
 {% endif %}
 
 </script>
-<!--end::Page Custom Javascript-->
-<!--end::Javascript-->
 
 </body>
-<!--end::Body-->
 </html>
